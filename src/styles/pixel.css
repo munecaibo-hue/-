@@ -1,0 +1,1190 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  overflow-x: clip;
+  background-color: var(--bg-deep);
+  color: var(--ink-light);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* =========================================================
+ * 第一頁：首頁（無像素風，現代探險插畫風 + 科博館闖關封面1 全幅底圖）
+ * ========================================================= */
+.home-page {
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: clamp(24px, 4vh, 48px) 16px 40px;
+  gap: 20px;
+  background-color: var(--bg-deep);
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(10, 26, 44, 0.56) 0%,
+      rgba(10, 26, 44, 0.3) 45%,
+      rgba(10, 26, 44, 0.62) 100%
+    ),
+    var(--cover-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.home-container {
+  width: min(680px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.home-header {
+  text-align: center;
+  padding: 6px 12px 0;
+}
+
+.home-title {
+  margin: 0;
+  font-size: clamp(2rem, 5.5vw, 3.1rem);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: #fff8dc;
+  text-shadow:
+    0 3px 0 #7a4209,
+    0 6px 20px rgba(8, 18, 32, 0.82);
+  line-height: 1.2;
+}
+
+.home-story-card {
+  width: 100%;
+  padding: 20px 24px;
+  border-radius: 20px;
+  background: rgba(14, 30, 50, 0.2);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1.5px solid rgba(255, 220, 125, 0.5);
+  box-shadow: 0 10px 26px rgba(5, 14, 26, 0.25);
+  color: #ffffff;
+  text-shadow:
+    0 2px 8px rgba(6, 16, 30, 0.92),
+    0 0 2px rgba(6, 16, 30, 0.95);
+  font-size: 0.98rem;
+  line-height: 1.8;
+}
+
+.home-story-card p {
+  margin: 0;
+}
+
+.home-story-card p + p {
+  margin-top: 12px;
+}
+
+/* 首頁成績榜（活動敘述下方獨立區塊） */
+.home-leaderboard-card {
+  width: 100%;
+  padding: 18px 22px 20px;
+  border-radius: 20px;
+  background: rgba(14, 32, 54, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255, 212, 77, 0.58);
+  box-shadow: 0 12px 32px rgba(5, 14, 26, 0.44);
+  color: #fdf7e7;
+}
+
+.home-leaderboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.home-leaderboard-title {
+  margin: 0;
+  font-size: 1.08rem;
+  font-weight: 900;
+  color: var(--gold-bright);
+}
+
+.home-leaderboard-sub {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #cfe2f7;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.home-leaderboard-refresh {
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 212, 77, 0.55);
+  background: rgba(255, 212, 77, 0.14);
+  color: #ffe8a3;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.home-leaderboard-refresh:hover:not(:disabled) {
+  background: rgba(255, 212, 77, 0.28);
+}
+
+.home-leaderboard-empty {
+  margin: 0;
+  padding: 12px 10px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #d7e6f7;
+}
+
+.leaderboard-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.leaderboard-row {
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.leaderboard-row--first {
+  background: linear-gradient(90deg, rgba(255, 212, 77, 0.24), rgba(255, 212, 77, 0.08));
+  border-color: rgba(255, 212, 77, 0.65);
+}
+
+.leaderboard-rank {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(10, 22, 38, 0.6);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.92rem;
+  font-weight: 900;
+  color: var(--gold-bright);
+}
+
+.leaderboard-team {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+}
+
+.leaderboard-class {
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: rgba(79, 184, 240, 0.24);
+  color: #d8f2ff;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.leaderboard-name {
+  font-size: 0.96rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.leaderboard-score {
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--gold-bright);
+  white-space: nowrap;
+}
+
+.home-form-card {
+  width: 100%;
+  padding: 24px 26px 26px;
+  border-radius: 22px;
+  background: rgba(255, 251, 240, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(232, 155, 28, 0.65);
+  box-shadow: 0 16px 40px rgba(5, 14, 26, 0.5);
+  color: var(--ink-dark);
+}
+
+.home-form-title {
+  margin: 0 0 16px;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #1c3a5c;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.home-form-meta {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #8f5608;
+  background: #ffefc2;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+.home-demo-notice {
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #fff4d6;
+  border: 1px solid #e8b34a;
+  color: #6b4306;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.team-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 16px;
+}
+
+.team-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.team-field--full {
+  grid-column: 1 / -1;
+}
+
+.team-field label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #2c2015;
+}
+
+.team-input {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: 1.5px solid #d4bfa0;
+  background: #ffffff;
+  color: var(--ink-dark);
+  /* 至少 16px 避免 iOS Safari 點擊輸入框自動放大跑版 */
+  font-size: 1rem;
+  font-family: var(--font-body);
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.team-input:focus {
+  border-color: #d98216;
+  box-shadow: 0 0 0 3px rgba(240, 165, 0, 0.25);
+}
+
+.team-field-error {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #c92a2a;
+}
+
+.home-submit-btn {
+  width: 100%;
+  margin-top: 18px;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #f5b423 0%, #e07b16 100%);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 1.12rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(224, 123, 22, 0.42);
+  transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
+}
+
+.home-submit-btn:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(224, 123, 22, 0.5);
+}
+
+.home-submit-btn:active {
+  transform: translateY(1px);
+}
+
+/* =========================================================
+ * 第二頁以後：黃金島探險圖全幅底圖 + 闖關介面
+ * ========================================================= */
+.island-map-page {
+  min-height: 100dvh;
+  width: 100%;
+  background-color: #193b52;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(15, 36, 56, 0.36) 0%,
+      rgba(15, 36, 56, 0.28) 50%,
+      rgba(15, 36, 56, 0.46) 100%
+    ),
+    var(--island-map-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.app-shell {
+  width: min(860px, 100%);
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.pixel-panel {
+  position: relative;
+  border-radius: 18px;
+  border: 3px solid #4a3118;
+  box-shadow: 0 12px 30px rgba(10, 22, 36, 0.42);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.pixel-panel--parchment {
+  background: rgba(252, 245, 228, 0.93);
+  color: var(--ink-dark);
+}
+
+.pixel-panel--navy {
+  background: rgba(18, 42, 66, 0.86);
+  color: var(--ink-light);
+  border-color: rgba(255, 212, 77, 0.55);
+}
+
+.pixel-panel--dark {
+  background: rgba(16, 36, 58, 0.9);
+  color: var(--ink-light);
+}
+
+.pixel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 12px;
+  border: 2.5px solid #2b1d0f;
+  font-family: var(--font-body);
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 100ms ease, filter 100ms ease, box-shadow 100ms ease;
+  user-select: none;
+  text-decoration: none;
+}
+
+.pixel-btn:active:not(:disabled) {
+  transform: translateY(2px);
+}
+
+.pixel-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pixel-btn--gold {
+  background: linear-gradient(180deg, #ffdb66 0%, #f0a518 100%);
+  color: var(--ink-dark);
+  box-shadow: 0 4px 0 0 #8f5608;
+}
+
+.pixel-btn--gold:hover:not(:disabled) {
+  filter: brightness(1.05);
+}
+
+.pixel-btn--emerald {
+  background: linear-gradient(180deg, #5be89d 0%, #24ab65 100%);
+  color: #0d2b1a;
+  box-shadow: 0 4px 0 0 #116239;
+}
+
+.pixel-btn--navy {
+  background: #284c73;
+  color: var(--ink-light);
+  box-shadow: 0 4px 0 0 #12263d;
+}
+
+.pixel-btn--option {
+  width: 100%;
+  justify-content: flex-start;
+  text-align: left;
+  padding: 14px 16px;
+  font-size: 1rem;
+  line-height: 1.45;
+  background: #fffdf6;
+  color: var(--ink-dark);
+  border-color: #bfa57a;
+  box-shadow: 0 3px 0 0 #c9b086;
+}
+
+.pixel-btn--option:hover:not(:disabled) {
+  background: #fff3cf;
+  border-color: #d98d1a;
+  transform: translateY(-1px);
+}
+
+.pixel-btn--option-selected {
+  background: #ffe17d;
+  border-color: #9e5d06;
+  box-shadow: 0 2px 0 0 #8f5608;
+}
+
+.pixel-progress-track {
+  width: 100%;
+  height: 14px;
+  background: rgba(9, 20, 34, 0.72);
+  border-radius: 999px;
+  border: 2px solid rgba(255, 212, 77, 0.45);
+  padding: 2px;
+  overflow: hidden;
+}
+
+.pixel-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 240ms ease;
+  background: linear-gradient(90deg, #ffd44d 0%, #f09518 100%);
+}
+
+.pixel-progress-fill--emerald {
+  background: linear-gradient(90deg, #52e596 0%, #22a863 100%);
+}
+
+.option-key-badge {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-mid);
+  color: var(--gold-bright);
+  font-weight: 900;
+  font-size: 0.9rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  gap: 12px;
+}
+
+.stat-tile {
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--bg-card-alt);
+  border: 2px solid #c9af82;
+  text-align: center;
+}
+
+.stat-tile__label {
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.stat-tile__value {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--ink-dark);
+}
+
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.review-item {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1.5px solid #d4be96;
+  background: #fffdf7;
+}
+
+.review-item--correct {
+  border-left: 6px solid var(--emerald-main);
+}
+
+.review-item--wrong {
+  border-left: 6px solid var(--crimson-main);
+}
+
+/* =========================================================
+ * 互動黃金島探險地圖（第二頁：點擊紅點進入各展品關卡）
+ * ========================================================= */
+.map-board-shell {
+  width: min(1240px, 100%);
+  margin: 0 auto;
+  padding: 14px 16px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.map-hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 18px;
+  border-radius: 16px;
+  background: rgba(16, 36, 58, 0.9);
+  border: 2px solid rgba(255, 212, 77, 0.55);
+  box-shadow: 0 10px 26px rgba(8, 20, 34, 0.42);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.map-hud__team {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.map-hud__progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.map-canvas-frame {
+  position: relative;
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 3px solid #6b441b;
+  box-shadow: 0 16px 40px rgba(7, 18, 30, 0.55);
+  background: #f5ebd1;
+  aspect-ratio: 11694 / 8263;
+}
+
+.map-canvas-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+}
+
+.map-hotspot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.map-hotspot:hover,
+.map-hotspot:focus-visible {
+  z-index: 15;
+  outline: none;
+}
+
+.map-hotspot__dot {
+  position: relative;
+  width: clamp(28px, 2.8vw, 38px);
+  height: clamp(28px, 2.8vw, 38px);
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 32%, #ff6b6b 0%, #e01e2b 65%, #990f19 100%);
+  border: 3px solid #ffffff;
+  box-shadow:
+    0 0 0 3px rgba(224, 30, 43, 0.45),
+    0 5px 14px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 900;
+  font-size: clamp(0.62rem, 0.92vw, 0.78rem);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.map-hotspot__dot::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 999px;
+  border: 3px solid rgba(255, 68, 68, 0.85);
+  animation: hotspot-pulse 1.8s ease-out infinite;
+  pointer-events: none;
+}
+
+.map-hotspot:hover .map-hotspot__dot,
+.map-hotspot:focus-visible .map-hotspot__dot {
+  transform: scale(1.18);
+  box-shadow:
+    0 0 0 5px rgba(255, 212, 77, 0.7),
+    0 8px 18px rgba(0, 0, 0, 0.6);
+}
+
+.map-hotspot--answered .map-hotspot__dot {
+  background: radial-gradient(circle at 35% 32%, #6bffb0 0%, #1db866 70%, #116239 100%);
+  box-shadow:
+    0 0 14px 4px rgba(82, 229, 150, 0.78),
+    0 0 0 3px rgba(34, 168, 99, 0.55),
+    0 5px 12px rgba(0, 0, 0, 0.45);
+}
+
+.map-hotspot--answered .map-hotspot__dot::after {
+  animation: none;
+  border-color: transparent;
+}
+
+/* 失敗過一次以上再挑戰成功：亮橙光發光狀態 */
+.map-hotspot--retry-cleared .map-hotspot__dot {
+  background: radial-gradient(circle at 35% 30%, #ffe066 0%, #ff9800 58%, #e65100 100%);
+  box-shadow:
+    0 0 18px 6px rgba(255, 166, 0, 0.92),
+    0 0 0 4px rgba(255, 196, 61, 0.72),
+    0 5px 14px rgba(0, 0, 0, 0.48);
+}
+
+.map-hotspot--retry-cleared .map-hotspot__dot::after {
+  border: 3px solid rgba(255, 179, 25, 0.92);
+  animation: hotspot-orange-glow 1.9s ease-in-out infinite;
+}
+
+.map-hotspot__label {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(18, 34, 54, 0.88);
+  color: #fff6dc;
+  border: 1.5px solid rgba(255, 212, 77, 0.72);
+  font-size: clamp(0.66rem, 1vw, 0.82rem);
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.42);
+  transition: transform 150ms ease, background 150ms ease;
+}
+
+.map-hotspot--answered .map-hotspot__label {
+  background: rgba(17, 88, 52, 0.94);
+  border-color: #7bf0b1;
+  box-shadow: 0 0 12px rgba(82, 229, 150, 0.55);
+}
+
+.map-hotspot--retry-cleared .map-hotspot__label {
+  background: linear-gradient(135deg, #e66800 0%, #ff9800 100%);
+  color: #ffffff;
+  border-color: #ffe380;
+  box-shadow: 0 0 14px rgba(255, 158, 0, 0.8);
+}
+
+.map-hotspot--right-edge .map-hotspot__label {
+  transform: translateX(-22%);
+}
+
+.map-hotspot:hover .map-hotspot__label {
+  transform: translateY(2px);
+}
+
+.map-hotspot--right-edge:hover .map-hotspot__label {
+  transform: translate(-22%, 2px);
+}
+
+.map-legend-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 14px;
+  background: rgba(16, 36, 58, 0.86);
+  border: 1.5px solid rgba(255, 212, 77, 0.35);
+  font-size: 0.86rem;
+  color: #e4eef9;
+}
+
+.map-station-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.map-station-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff7e6;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+
+.map-station-pill:hover {
+  background: rgba(255, 212, 77, 0.24);
+  border-color: var(--gold-bright);
+}
+
+.map-station-pill--done {
+  background: rgba(34, 168, 99, 0.28);
+  border-color: #5be89d;
+  color: #c7ffe0;
+}
+
+.map-station-pill--retry {
+  background: rgba(255, 148, 0, 0.34);
+  border-color: #ffbd42;
+  color: #fff2cc;
+  box-shadow: 0 0 10px rgba(255, 152, 0, 0.45);
+}
+
+.map-station-pill__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #ff4444;
+  flex-shrink: 0;
+}
+
+.map-station-pill--done .map-station-pill__dot {
+  background: #52e596;
+}
+
+.map-station-pill--retry .map-station-pill__dot {
+  background: #ff9d00;
+  box-shadow: 0 0 8px #ffae00;
+}
+
+/* 單題即時回饋橫幅與選項狀態 */
+.stage-feedback {
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.stage-feedback--correct {
+  background: #e3faec;
+  border: 2px solid #22a863;
+  color: #0f5230;
+  animation: feedback-pop 280ms ease-out;
+}
+
+.stage-feedback--wrong {
+  background: #fff0f0;
+  border: 2px solid #e03131;
+  color: #8c1818;
+  animation: feedback-shake 320ms ease-in-out;
+}
+
+.stage-feedback--retry-cleared {
+  background: #fff3db;
+  border: 2px solid #ff9200;
+  color: #7c3c00;
+}
+
+.option-btn--correct {
+  background: #d8f8e6 !important;
+  border-color: #1ea866 !important;
+  box-shadow: 0 3px 0 0 #147043 !important;
+}
+
+.option-btn--wrong {
+  background: #fdecec !important;
+  border-color: #e68a8a !important;
+  color: #8a3a3a !important;
+  opacity: 0.72 !important;
+}
+
+/* 第二頁右下方「管理員」固定按鈕與管理彈窗 */
+.admin-fab-btn {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 35;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 212, 77, 0.7);
+  background: rgba(14, 30, 50, 0.88);
+  color: #fff3c4;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(6, 16, 28, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: transform 140ms ease, background 140ms ease;
+}
+
+.admin-fab-btn:hover {
+  background: rgba(24, 52, 84, 0.96);
+  transform: translateY(-2px);
+}
+
+.admin-modal-card {
+  width: min(680px, 100%);
+  max-height: 86dvh;
+  overflow-y: auto;
+  border-radius: 20px;
+  background: #fcf6e8;
+  color: var(--ink-dark);
+  border: 3px solid #4a3118;
+  box-shadow: 0 20px 50px rgba(5, 14, 26, 0.65);
+}
+
+.admin-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 22px;
+  background: #173554;
+  color: var(--gold-bright);
+  border-bottom: 2px solid rgba(255, 212, 77, 0.45);
+}
+
+.admin-section {
+  padding: 16px;
+  border-radius: 14px;
+  background: #fffdf8;
+  border: 1.5px solid #e0cda9;
+}
+
+.admin-section--danger {
+  background: #fff5f5;
+  border-color: #f3b5b5;
+}
+
+.admin-section-title {
+  margin: 0 0 10px;
+  font-size: 0.98rem;
+  font-weight: 900;
+  color: #173554;
+}
+
+.admin-mini-btn {
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid #c9b086;
+  background: #f7eed6;
+  color: var(--ink-dark);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.admin-table-wrap {
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #e7d9be;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.admin-table th {
+  background: #f5ebd4;
+  color: #4a361e;
+  font-weight: 800;
+}
+
+@keyframes hotspot-orange-glow {
+  0%,
+  100% {
+    transform: scale(0.95);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scale(1.45);
+    opacity: 0.25;
+  }
+}
+
+@keyframes feedback-pop {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes feedback-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-6px);
+  }
+  55% {
+    transform: translateX(6px);
+  }
+  80% {
+    transform: translateX(-3px);
+  }
+}
+
+.quiz-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(9, 20, 34, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 16px;
+}
+
+.quiz-modal-content {
+  width: min(820px, 100%);
+  margin: auto;
+}
+
+@keyframes hotspot-pulse {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.95;
+  }
+  70% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  /* 修正 iOS Safari 使用 background-attachment: fixed 造成背景過度放大與滾動卡頓 */
+  .home-page,
+  .island-map-page {
+    background-attachment: scroll;
+  }
+
+  .map-board-shell {
+    padding: 10px 10px calc(76px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .map-hud {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .map-hud__progress {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .map-hud__progress > button {
+    flex: 1 1 auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .home-page {
+    padding: 18px 12px 32px;
+    gap: 14px;
+  }
+
+  .home-container {
+    gap: 14px;
+  }
+
+  .home-title {
+    font-size: clamp(1.65rem, 7.5vw, 2.2rem);
+    letter-spacing: 0.05em;
+  }
+
+  .home-story-card {
+    padding: 16px 16px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    border-radius: 16px;
+  }
+
+  .home-leaderboard-card,
+  .home-form-card {
+    padding: 16px 14px 18px;
+    border-radius: 18px;
+  }
+
+  .home-form-title {
+    font-size: 1.04rem;
+    margin-bottom: 12px;
+  }
+
+  .home-form-meta {
+    font-size: 0.76rem;
+    line-height: 1.4;
+    padding: 4px 10px;
+  }
+
+  .leaderboard-row {
+    grid-template-columns: 30px minmax(0, 1fr) auto;
+    gap: 8px;
+    padding: 8px 10px;
+  }
+
+  .leaderboard-name {
+    font-size: 0.88rem;
+    overflow-wrap: anywhere;
+  }
+
+  .leaderboard-score {
+    font-size: 0.92rem;
+  }
+
+  .team-form-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .home-submit-btn {
+    padding: 13px 18px;
+    font-size: 1.02rem;
+  }
+
+  /* 手機直式畫面下隱藏地圖內浮動文字標籤防止互相重疊，保留清晰圓點＋下方 2 欄大按鈕可直接點 */
+  .map-hotspot__dot {
+    width: 24px;
+    height: 24px;
+    border-width: 2px;
+    font-size: 0.56rem;
+  }
+
+  .map-hotspot__dot::after {
+    inset: -4px;
+    border-width: 2px;
+  }
+
+  .map-hotspot__label {
+    display: none;
+  }
+
+  .map-legend-bar {
+    padding: 10px 12px;
+    font-size: 0.8rem;
+    gap: 8px;
+  }
+
+  .map-station-pills {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .map-station-pill {
+    justify-content: flex-start;
+    padding: 8px 10px;
+    font-size: 0.8rem;
+  }
+
+  .admin-fab-btn {
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    padding: 9px 14px;
+    font-size: 0.84rem;
+  }
+
+  .quiz-modal-overlay {
+    align-items: flex-start;
+    padding: 12px 10px 28px;
+  }
+
+  .admin-modal-card {
+    max-height: calc(100dvh - 24px);
+    border-radius: 16px;
+  }
+
+  .admin-modal-header {
+    padding: 12px 14px;
+  }
+
+  .pixel-btn--option {
+    padding: 12px 12px;
+    font-size: 0.94rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .app-shell {
+    padding: 14px 10px 32px;
+  }
+}

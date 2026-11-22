@@ -1,0 +1,37 @@
+/*
+ * 科博館黃金島闖關 — 視覺主題變數
+ */
+:root {
+  /* 色票：科博館玻璃穹頂藍 + 探險暖金銅 + 羊皮紙米白 */
+  --bg-deep: #0f243b;
+  --bg-mid: #173554;
+  --bg-surface: #1e4268;
+  --bg-card: #faf0d7;
+  --bg-card-alt: #f0dfb8;
+
+  --ink-dark: #21170e;
+  --ink-muted: #614d36;
+  --ink-light: #fdf7e7;
+
+  --gold-bright: #ffd44d;
+  --gold-main: #e89b1c;
+  --gold-shadow: #8f5608;
+
+  --emerald-bright: #52e596;
+  --emerald-main: #22a863;
+  --emerald-shadow: #116239;
+
+  --crimson-bright: #ff7066;
+  --crimson-main: #d93b32;
+  --crimson-shadow: #801c18;
+
+  --teal-accent: #4fb8f0;
+  --pixel-border: #140e09;
+
+  /* 字體 */
+  --font-body: 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+
+  /* 底圖資產 */
+  --cover-image: url('/cover-1.jpg');
+  --island-map-image: url('/island-map-n.jpg');
+}

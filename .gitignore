@@ -1,0 +1,17 @@
+node_modules
+dist
+.env
+.env.local
+.env.*.local
+.DS_Store
+*.log
+
+# 排除 Word 暫存檔與大型原始印刷素材（網站實際使用 public/ 內的壓縮版圖片）
+~$*
+*.docx
+*.pdf
+A4橫式科博館黃金島探險圖.jpg
+科博館闖關封面1.jpeg
+科博館闖關封面2.jpeg
+科博館黃金島探險圖Ｎ.jpg
+人類文化廳/
