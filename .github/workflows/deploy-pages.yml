@@ -16,6 +16,9 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+env:
+  DEFAULT_GAS_URL: https://script.google.com/macros/s/AKfycbxbf6qTTfRd-CIBrtDWwN0b4I-wGcjQGHWe-EIsP5yoX3UYHAgnNTL193810FKuRHI/exec
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -38,21 +41,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Check environment configuration
-        env:
-          GOOGLE_APP_SCRIPT_URL: ${{ secrets.GOOGLE_APP_SCRIPT_URL || vars.GOOGLE_APP_SCRIPT_URL || secrets.VITE_GOOGLE_APP_SCRIPT_URL || vars.VITE_GOOGLE_APP_SCRIPT_URL }}
-        run: |
-          if [ -z "$GOOGLE_APP_SCRIPT_URL" ]; then
-            echo "::warning::GOOGLE_APP_SCRIPT_URL 未設定，將以本地展示模式建置。請於 Settings → Secrets and variables → Actions 設定 GOOGLE_APP_SCRIPT_URL 後重跑 Workflow。"
-          else
-            echo "✅ GOOGLE_APP_SCRIPT_URL 已載入，將以正式 Google Sheets 模式建置。"
-          fi
-
       - name: Build production bundle
         run: npm run build
         env:
           BASE_PATH: ${{ steps.pages.outputs.base_path }}/
-          GOOGLE_APP_SCRIPT_URL: ${{ secrets.GOOGLE_APP_SCRIPT_URL || vars.GOOGLE_APP_SCRIPT_URL || secrets.VITE_GOOGLE_APP_SCRIPT_URL || vars.VITE_GOOGLE_APP_SCRIPT_URL }}
+          GOOGLE_APP_SCRIPT_URL: ${{ secrets.GOOGLE_APP_SCRIPT_URL || vars.GOOGLE_APP_SCRIPT_URL || secrets.GOOGLE_APPS_SCRIPT_URL || vars.GOOGLE_APPS_SCRIPT_URL || env.DEFAULT_GAS_URL }}
           PASS_THRESHOLD: ${{ vars.PASS_THRESHOLD || secrets.PASS_THRESHOLD || '5' }}
           QUESTION_COUNT: ${{ vars.QUESTION_COUNT || secrets.QUESTION_COUNT || '8' }}
 
