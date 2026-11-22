@@ -10,14 +10,18 @@ import type { StationProgress } from '../types';
 
 const ADMIN_PASSCODE = '3333';
 
+export interface AdminActiveSession {
+  readonly teamInfo: TeamInfo;
+  readonly stations: readonly AssignedStation[];
+  readonly progressByStationId: Readonly<Record<string, StationProgress>>;
+  readonly onResetCurrentRun: () => void;
+  readonly onBackToHome: () => void;
+}
+
 interface AdminModalProps {
-  teamInfo: TeamInfo;
-  stations: readonly AssignedStation[];
-  progressByStationId: Readonly<Record<string, StationProgress>>;
+  activeSession?: AdminActiveSession;
   leaderboard: LeaderboardState;
   onReloadLeaderboard: () => void;
-  onResetCurrentRun: () => void;
-  onBackToHome: () => void;
   onClose: () => void;
 }
 
@@ -28,13 +32,9 @@ type ResetStatus =
   | { readonly kind: 'error'; readonly message: string };
 
 export function AdminModal({
-  teamInfo,
-  stations,
-  progressByStationId,
+  activeSession,
   leaderboard,
   onReloadLeaderboard,
-  onResetCurrentRun,
-  onBackToHome,
   onClose,
 }: AdminModalProps) {
   const [passcode, setPasscode] = useState('');
@@ -73,14 +73,14 @@ export function AdminModal({
       ? '「回答」成績表與「黃金島」小隊報到表'
       : '「回答」成績表中的所有成績紀錄';
     const confirmed = window.confirm(
-      `確定要全部重置嗎？\n此動作將同步清空 Google Sheets ${targetDesc}（保留第 1 列標題）並重設本局進度，且無法復原！`,
+      `確定要全部重置嗎？\n此動作將同步清空 Google Sheets ${targetDesc}（保留第 1 列標題）${activeSession ? '並重設本局進度' : ''}，且無法復原！`,
     );
     if (!confirmed) return;
 
     setResetStatus({ kind: 'resetting' });
     try {
       const summary = await resetAllScores(verifiedPasscode, includeTeams);
-      onResetCurrentRun();
+      activeSession?.onResetCurrentRun();
       onReloadLeaderboard();
 
       const teamMsg = includeTeams ? `、清空 ${summary.clearedTeamRows} 筆小隊報到` : '';
@@ -96,12 +96,16 @@ export function AdminModal({
     }
   };
 
-  const greenCount = stations.filter(
-    (s) => progressByStationId[s.station.id]?.status === 'cleared_first_try',
-  ).length;
-  const retryCount = stations.filter(
-    (s) => progressByStationId[s.station.id]?.status === 'cleared_after_retry',
-  ).length;
+  const greenCount = activeSession
+    ? activeSession.stations.filter(
+        (s) => activeSession.progressByStationId[s.station.id]?.status === 'cleared_first_try',
+      ).length
+    : 0;
+  const retryCount = activeSession
+    ? activeSession.stations.filter(
+        (s) => activeSession.progressByStationId[s.station.id]?.status === 'cleared_after_retry',
+      ).length
+    : 0;
 
   return (
     <div
@@ -170,49 +174,61 @@ export function AdminModal({
               gap: '16px',
             }}
           >
-            <div className="admin-section">
-              <h3 className="admin-section-title">目前場次狀態</h3>
-              <p style={{ margin: '0 0 8px', fontSize: '0.92rem', lineHeight: 1.6 }}>
-                小隊：
-                <strong>
-                  {teamInfo.className}・{teamInfo.teamNumber}・{teamInfo.teamName}
-                </strong>
-                （小隊長：{teamInfo.teamLeader}／{teamInfo.teamSize} 人）
-              </p>
-              <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--ink-muted)' }}>
-                🟢 一次過關：{greenCount} 關 ｜ 🟠 再戰過關：{retryCount} 關 ｜ 🔴 未完成：
-                {stations.length - greenCount - retryCount} 關
-              </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '12px' }}>
-                <PixelButton
-                  variant="gold"
-                  onClick={() => {
-                    onResetCurrentRun();
-                    onClose();
-                  }}
-                  style={{ padding: '9px 14px', fontSize: '0.88rem' }}
-                >
-                  ↻ 僅重設本局 8 關進度
-                </PixelButton>
-                <PixelButton
-                  variant="navy"
-                  onClick={() => {
-                    onClose();
-                    onBackToHome();
-                  }}
-                  style={{ padding: '9px 14px', fontSize: '0.88rem' }}
-                >
-                  🏠 直接返回首頁
-                </PixelButton>
+            {activeSession ? (
+              <div className="admin-section">
+                <h3 className="admin-section-title">目前場次狀態</h3>
+                <p style={{ margin: '0 0 8px', fontSize: '0.92rem', lineHeight: 1.6 }}>
+                  小隊：
+                  <strong>
+                    {activeSession.teamInfo.className}・{activeSession.teamInfo.teamNumber}・
+                    {activeSession.teamInfo.teamName}
+                  </strong>
+                  （小隊長：{activeSession.teamInfo.teamLeader}／{activeSession.teamInfo.teamSize}{' '}
+                  人）
+                </p>
+                <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--ink-muted)' }}>
+                  🟢 一次過關：{greenCount} 關 ｜ 🟠 再戰過關：{retryCount} 關 ｜ 🔴 未完成：
+                  {activeSession.stations.length - greenCount - retryCount} 關
+                </p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '12px' }}>
+                  <PixelButton
+                    variant="gold"
+                    onClick={() => {
+                      activeSession.onResetCurrentRun();
+                      onClose();
+                    }}
+                    style={{ padding: '9px 14px', fontSize: '0.88rem' }}
+                  >
+                    ↻ 僅重設本局 8 關進度
+                  </PixelButton>
+                  <PixelButton
+                    variant="navy"
+                    onClick={() => {
+                      onClose();
+                      activeSession.onBackToHome();
+                    }}
+                    style={{ padding: '9px 14px', fontSize: '0.88rem' }}
+                  >
+                    🏠 直接返回首頁
+                  </PixelButton>
+                </div>
               </div>
-            </div>
+            ) : null}
 
             <div className="admin-section admin-section--danger">
               <h3 className="admin-section-title" style={{ color: '#9b1c1c' }}>
                 全部重置成績（同步更新 Google Sheets）
               </h3>
-              <p style={{ margin: '0 0 10px', fontSize: '0.86rem', color: '#5c2b2b', lineHeight: 1.6 }}>
-                會清空 Google Sheets「回答」工作表的所有成績列（保留第 1 列標題），並立即重置首頁成績榜與本局進度。
+              <p
+                style={{
+                  margin: '0 0 10px',
+                  fontSize: '0.86rem',
+                  color: '#5c2b2b',
+                  lineHeight: 1.6,
+                }}
+              >
+                會清空 Google Sheets「回答」工作表的所有成績列（保留第 1 列標題），並立即重置首頁成績榜
+                {activeSession ? '與本局進度' : ''}。
               </p>
 
               <label

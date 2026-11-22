@@ -244,13 +244,15 @@ export function MapBoardScreen({
 
       {isAdminOpen ? (
         <AdminModal
-          teamInfo={teamInfo}
-          stations={stations}
-          progressByStationId={progressByStationId}
+          activeSession={{
+            teamInfo,
+            stations,
+            progressByStationId,
+            onResetCurrentRun: onAdminResetRun,
+            onBackToHome,
+          }}
           leaderboard={leaderboard}
           onReloadLeaderboard={onReloadLeaderboard}
-          onResetCurrentRun={onAdminResetRun}
-          onBackToHome={onBackToHome}
           onClose={() => setIsAdminOpen(false)}
         />
       ) : null}
